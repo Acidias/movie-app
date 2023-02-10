@@ -28,3 +28,7 @@ A singe artefact that all memeber of the group feed into
 ### Option 2
 
 Each member to produce their own version of an artefact consistent with the overall idea
+
+## MindMap
+
+https://xmind.works/share/A3mmgBBb
