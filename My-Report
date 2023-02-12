@@ -1,3 +1,5 @@
+ # Report
+ 
  Movie App that allows users to search for movies and view the details of a selected movie. 
  The project is built using React, a JavaScript library for building user interfaces, 
  and it makes use of the OpenAI API to generate a story about the selected movie.
@@ -22,3 +24,25 @@ that allows the user to close the modal.
 In conclusion, the project is a simple movie app that demonstrates the use of React and the OpenAI API. 
 The project makes use of functional components, state management with the useState hook, 
 and API calls to display movie data and generate a story about the selected movie.
+
+# Learning Outcomes
+
+-Understanding of React components and their behavior: You will learn how to create and use React components, including state management and event handling.
+
+-Use of React Hooks: You will learn how to use React Hooks, such as useState and useEffect, to manage state and handle side effects in your components.
+
+-Understanding of RESTful APIs: You will learn how to make API calls to a RESTful API and retrieve data, and how to parse the response data.
+
+-Integration of external libraries: You will learn how to integrate and use external libraries, such as axios and react-spinners, in your React project.
+
+-Usage of CSS in React: You will learn how to use CSS in React to style your components and create a visually appealing user interface.
+
+-Knowledge of OpenAI API: You will learn how to use the OpenAI API to generate text based on a prompt.
+
+-Understanding of Git version control: You will learn how to use Git version control to manage your code and collaborate with others on a project.
+
+-Understanding of modular programming: You will learn how to break down your code into smaller, reusable components, making your code more organized and maintainable.
+
+-Use of conditional rendering in React: You will learn how to conditionally render components in React based on specific conditions.
+
+-Knowledge of error handling: You will learn how to handle errors and exceptions that may occur during the development and deployment of your project.
