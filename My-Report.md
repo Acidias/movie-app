@@ -27,15 +27,25 @@ and API calls to display movie data and generate a story about the selected movi
 
 # Learning Outcomes
 
-## With creating this project, I learned the following:
+### With creating this project, I learned the following:
 
 -The basics of React components and how to use them to build a user interface.
+
 -How to use React Hooks, such as useState and useEffect, to manage state and handle side effects in my components.
+
 -The process of making API calls to a RESTful API and retrieving data, as well as parsing the response data.
+
 -How to integrate and use external libraries, such as axios and react-spinners, in my React project.
+
 -The basics of styling my components using CSS in React to create a visually appealing user interface.
+
 -How to use the OpenAI API to generate text based on a prompt, which added another layer of functionality to my project.
+
 -The importance of version control and how to use Git to manage my code and collaborate with others on a project.
+
 -The benefits of modular programming and how to break down my code into smaller, reusable components, making my code more organized and maintainable.
+
 -The concept of conditional rendering in React and how to conditionally render components based on specific conditions.
+
 -The importance of error handling and how to handle errors and exceptions that may occur during the development and deployment of my project.
+
