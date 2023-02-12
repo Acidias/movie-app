@@ -4,7 +4,7 @@
 This module is designed to develop a range of employability skills using a guided project, undertaken as a team, as the vehicle. Each student will work on the project within their team. Project specifications will be provided that ensure the students have an opportunity to develop project and time management, professional, team communication and reporting, risk, presentation, and self-evaluation skills. Projects are based on commercial/industrial scenarios and incorporate the concepts of specification, design, implementation, and testing. 
 
 ## Movie App - Group 9
-Topic: Website to Ai generate 
+Topic: Website with AI generated movie story 
 
 ## Report
 
