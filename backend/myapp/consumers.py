@@ -10,7 +10,7 @@ import httpx
 from decouple import config
 
 OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+OPENAI_API_KEY = config("OPENAI_API_KEY")
 
 
 class SentimentConsumer(AsyncWebsocketConsumer):
