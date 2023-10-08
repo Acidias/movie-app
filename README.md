@@ -1,17 +1,32 @@
-<<<<<<< HEAD
+# Movie App Setup Guide
 
-For backend:
-     Create a virtual environment: python3 -m venv venv_name
-     Open it: source venv_name/bin/activate
-     Install Requirements: pip install -r requirements.txt
-     Setup your .env file
-     Start Django: daphne backend.asgi:application
-     
+## 🚀 Backend Setup
 
-For Client:
-     Install: npm install
-     Setup your .env file
-     Start: npm start
+1. **Create a virtual environment**
+   ```python3 -m venv venv_name```
+
+2. **Activate the virtual environment**
+   ```source venv_name/bin/activate```
+
+3. **Install requirements**
+   ```pip install -r requirements.txt```
+
+4. **Setup your .env file**
+   Make sure to create and configure your `.env` file with the necessary variables.
+
+5. **Start Django**
+   ```daphne backend.asgi:application```
+
+## 🎬 Client Setup
+
+1. **Install dependencies**
+   ```npm install```
+
+2. **Setup your .env file**
+   Ensure you configure the `.env` file with the necessary variables.
+
+3. **Start the client**
+   ```npm start```
 
 # UH - Team Software Porject
 
