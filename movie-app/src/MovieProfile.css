@@ -1,0 +1,68 @@
+.movieProfile {
+   display: grid;
+   grid-template-areas:
+      "header header header header header"
+      "poster actors analyst analyst analyst"
+      "poster actors analyst analyst analyst"
+      "poster sentimentDetails sentimentDetails sentimentDetails sentimentDetails"
+      "poster buttons buttons buttons buttons";
+   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+   grid-template-rows: auto auto auto auto auto;
+   gap: 20px;
+   padding: 20px;
+   background-color: white;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+   width: 95%;
+   margin: 20px auto;
+}
+
+.movieHeader {
+   grid-area: header;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.moviePoster {
+   grid-area: poster;
+}
+
+.actors {
+   grid-area: actors;
+   margin-top: 0;
+}
+
+.analyst {
+   grid-area: analyst;
+}
+
+.buttons {
+   grid-area: buttons;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding-top: 20px;
+}
+
+.sentimentDetails {
+   grid-area: sentimentDetails;
+   margin-top: 0;
+   max-height: 300px;
+   overflow-y: auto;
+}
+
+.sentimentDetails::-webkit-scrollbar {
+   width: 10px;
+}
+
+.sentimentDetails::-webkit-scrollbar-track {
+   background: #f1f1f1;
+}
+
+.sentimentDetails::-webkit-scrollbar-thumb {
+   background: #888;
+}
+
+.sentimentDetails::-webkit-scrollbar-thumb:hover {
+   background: #555;
+}

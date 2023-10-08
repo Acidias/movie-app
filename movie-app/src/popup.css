@@ -1,0 +1,219 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.modalContainer {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    //box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5);
+    width: 80%;
+    height: 80%;
+    box-shadow: 0px 0px 50px 15px rgb(255 255 255 / 60%);
+    font-size: 24px;
+}
+
+
+.closeButton{
+    font-size: 34px;
+    border: 3px solid #333;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left: 75%;
+    position: absolute;
+    color: white;
+    background-color: #333;
+}
+.closeButton:hover{
+    color: #a9a9a9;
+    width: 52px;
+    height: 52px;
+    box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.5);
+}
+
+.posterAndActors {
+    margin: auto;
+    display: flex;
+}
+.actors{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+.left img{
+    width: 300px;
+    height: 440px;
+    box-shadow: 5px 5px 15px 4px rgb(92 92 92 / 60%);
+    border-radius: 10px;
+}
+
+.modalHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.modalTitle{
+    font-size: 2.5rem;
+    letter-spacing: 0.9px;
+    color: #1976d2;
+
+    font-weight: 600;
+    margin-right: 10px;
+}
+.movieYear{
+    font-size: 1.5rem;
+    letter-spacing: 0.9px;
+    color: rgb(249, 211, 180);
+    font-weight: 400;
+    margin-top: 3px;
+}
+.right{
+    margin-left: 40px;
+    width: 100%;
+    font-size: 13px;
+}
+
+.story{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 14px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+@media (min-width: 1600px){
+    .modalContainer{
+        font-size: 28px;
+    }
+    .left img{
+        width: 300px;
+        height: 500px;
+    }
+
+}
+
+
+@media (max-width: 1200px) {
+    .modalContainer{
+        width: 80%;
+        height: 80%;
+        padding: 10px;
+        font-size: 14px;
+    }
+    .left img{
+        width: 300px;
+        height: 400px;
+    }
+    .modalHeader{
+        font-size: 14px;
+    }
+    .modalHeader h1{
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .modalContainer{
+        width: 80%;
+        height: 90%;
+        padding: 10px;
+    }
+    .posterAndActors{
+        flex-direction: column;
+        
+    }
+    .right{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 5px;
+        font-size: 1rem;
+    }
+    .left{
+        margin: auto;
+    }
+    .left img{
+        width: 160px;
+        height: 230px;
+    }
+    .modalHeader{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .modalTitle{
+        font-size: 1.5rem;
+        letter-spacing: 0.9px;
+        color: rgb(249, 211, 180);
+        font-weight: 600;
+        margin-right: 10px;
+    }
+    .movieYear{
+        font-size: 1rem;
+        letter-spacing: 0.9px;
+        color: rgb(249, 211, 180);
+        font-weight: 400;
+        margin-top: 3px;
+    }
+}
+
+@media (max-width: 500px){
+    .right{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 11px
+    }
+    .left img{
+        width: 150px;
+        height: 190px;
+    }
+    .modalHeader{
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+    .modalHeader h1{
+        font-size: 20px;
+    }
+    .closeButton{
+        margin-left: 78%;
+        font-size: 17px;
+        height: 25px;
+        width: 23px;
+    }
+    .modalContainer{
+        width: 90%;
+        height: 90%;
+        padding: 10px;
+        font-size: 13px;
+    }
+    .modalTitle{
+        font-size: 1rem;
+    }
+    .movieYear{
+        font-size: 0.6rem;
+    }
+}

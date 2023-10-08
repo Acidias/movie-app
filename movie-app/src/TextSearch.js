@@ -1,0 +1,136 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import SearchIcon from "./search.svg";
+import "./App.css";
+import { useEffect, useState } from "react";
+import Movie from "./Movie";
+import axios from "axios";
+import Button from "@mui/material/Button";
+import RingLoader from "react-spinners/RingLoader";
+
+const REACT_APP_API_KEY = process.env.REACT_APP_API_KEY;
+console.log("API_KEY:", REACT_APP_API_KEY);
+const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${REACT_APP_API_KEY}`;
+
+const TextSearch = () => {
+   const navigate = useNavigate();
+
+   const [movies, setMovies] = useState([]);
+   const [loading, setLoading] = useState(false);
+   const [searchValue, setSearchValue] = useState("");
+   const [openAIResults, setOpenAIResults] = useState([]);
+
+   const extractTitles = (content) => {
+      return content
+         .replace(/{|}/g, "")
+         .split(", ")
+         .map((title) => title.trim());
+   };
+   const handleSearch = async () => {
+      try {
+         const response = await fetch(
+            "http://localhost:8000/api/openai_movie_titles/",
+            {
+               method: "POST",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                  searchValue: searchValue,
+               }),
+            }
+         );
+
+         if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+         }
+
+         const data = await response.json();
+         console.log("data:", data);
+         const titlesArray = extractTitles(data.openaiResults.content);
+         searchMovies(titlesArray);
+      } catch (error) {
+         console.error("Fetch error:", error);
+      }
+   };
+
+   useEffect(() => {
+      searchMovies("");
+   }, []);
+
+   const searchMovies = async (titles) => {
+      console.log("movieTitles:", titles);
+      const results = [];
+      for (let i = 0; i < titles.length; i++) {
+         const response = await fetch(
+            `${API_URL}&query=${encodeURIComponent(titles[i])}`
+         );
+         const data = await response.json();
+         console.log("data:", data);
+         results.push(...data.results);
+      }
+      console.log("results:", results);
+      setMovies(results);
+   };
+
+   return (
+      <div className="app">
+         <h1>The Movie App</h1>
+
+         <div className="buttons">
+            <Button
+               className="button"
+               variant="contained"
+               onClick={() => navigate("/")}
+            >
+               Search by Title
+            </Button>
+            <Button
+               className="button"
+               variant="contained"
+               onClick={() => navigate("/chatai")}
+            >
+               Ask AI Chatbot
+            </Button>
+         </div>
+         <div className="search">
+            <input
+               type="text"
+               placeholder="Type details about the movie you wish to find...."
+               value={searchValue}
+               onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <img src={SearchIcon} alt="search" onClick={handleSearch} />
+         </div>
+         {openAIResults.length > 0 && (
+            <div className="openai-results">
+               <h2>Possible Movie Titles:</h2>
+               <ul>
+                  {openAIResults.map((title, index) => (
+                     <li key={index} onClick={() => searchMovies(title)}>
+                        {title}
+                     </li>
+                  ))}
+               </ul>
+            </div>
+         )}
+         <div>
+            {loading ? (
+               <RingLoader color="#36d7b7" />
+            ) : movies?.length > 0 ? (
+               <div className="container">
+                  {movies.map((movie) => (
+                     <Movie movie={movie} />
+                  ))}
+               </div>
+            ) : (
+               <div className="empty">
+                  <h2>No movies found</h2>
+               </div>
+            )}
+         </div>
+      </div>
+   );
+};
+
+export default TextSearch;
