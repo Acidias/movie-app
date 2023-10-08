@@ -1,0 +1,143 @@
+/* Responsive styles for various screen sizes */
+.mainContainer{
+    border: 0 !important;
+}
+
+.messageList{
+    background: #212426 !important;
+}
+
+
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: 45px 0;
+  width: 100%;
+}
+
+.chatWindow {
+    position: relative;
+    height: calc(100vh - 200px); /* Adjust this value based on the height of your header */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px
+  }
+  
+  .mainContainer {
+    border: 0 !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+  }
+  
+  .chatContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+  }
+  
+  .messageList {
+    background: #212426 !important;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+@media only screen and (max-width: 400px) {
+    .chatWindow{
+        height: calc(100vh - 180px) !important;
+    }
+}
+
+/* Extra small devices (phones, less than 600px) */
+@media only screen and (max-width: 599px) {
+    /* Add CSS styles for extra small devices here */
+    .buttons{
+        width: 80% !important;
+        justify-content: space-evenly !important;
+        margin: 10px 0 !important;
+        flex-direction: row !important;
+    }
+    .button{
+        margin: 10px 0 !important;
+        font-size: 10px !important;
+    }
+    .app{
+        padding: 0 !important;
+    }
+    .chatWindow {
+        margin-top: 65px;
+    }
+
+
+  }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    /* Add CSS styles for small devices here */
+    .app{
+        padding: 0 !important;
+    }
+    .buttons{
+        width: 70% !important;
+        justify-content: space-evenly !important;
+    }
+
+    .chatWindow {
+        margin-top: 5px;
+    }
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    /* Add CSS styles for medium devices here */
+    .app{
+        padding: 0 !important;
+    }
+    .buttons{
+        width: 60% !important;
+        justify-content: space-evenly !important;
+    }
+
+    .chatWindow {
+        margin-top: 5px;
+    }
+  }
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    /* Add CSS styles for large devices here */
+    .app{
+        padding: 0 !important;
+    }
+    .buttons{
+        width: 50% !important;
+        justify-content: space-evenly !important;
+    }
+
+    .chatWindow {
+        margin-top: 5px;
+    }
+  }
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    /* Add CSS styles for extra large devices here */
+    .app{
+        padding: 0 !important;
+    }
+    .buttons{
+        width: 40% !important;
+        justify-content: space-evenly !important;
+    }
+
+    .chatWindow {
+        margin-top: 5px;
+    }
+  }
