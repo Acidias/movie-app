@@ -17,7 +17,7 @@
 5. **Start Django**
    ```daphne backend.asgi:application```
    O
-   ```daphne -u /tmp/daphne.sock -b 0.0.0.0 -p 8000 backend.asgi:application``
+   ```daphne -u /tmp/daphne.sock -b 0.0.0.0 -p 8000 backend.asgi:application```
 
 ## 🎬 Client Setup
 
