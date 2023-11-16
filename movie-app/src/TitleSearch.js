@@ -8,22 +8,25 @@ import { useNavigate } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 
-const API_URL = "http://localhost:8000/api/search/";
+const REACT_APP_URL = process.env.REACT_APP_URL;
 
 const TitleSearch = () => {
    const navigate = useNavigate();
-
+   const auth = getAuth();
+   const user = auth.currentUser;
    const [movies, setMovies] = useState([]);
    const [searchValue, setSearchValue] = useState("");
 
    const searchMovies = async (title) => {
-      const response = await fetch(`${API_URL}${encodeURIComponent(title)}/`);
+      const response = await fetch(
+         `${REACT_APP_URL}/api/search/${encodeURIComponent(title)}/`
+      );
       const data = await response.json();
       setMovies(data.results);
    };
 
-   console.log("movies:", movies);
    useEffect(() => {
       searchMovies("avengers");
    }, []);
@@ -31,6 +34,7 @@ const TitleSearch = () => {
    return (
       <div className="app">
          <h1>The Movie App</h1>
+         <h3>Welcome {user?.displayName}</h3>
          <div className="buttons">
             <Button
                className="button"

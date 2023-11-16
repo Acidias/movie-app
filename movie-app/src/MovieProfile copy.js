@@ -24,7 +24,7 @@ const MovieProfile = () => {
    const handleAnalyze = async () => {
       try {
          const response = await axios.get(
-            `http://localhost:8000/analyse_subtitle/?tmdb_id=${movie.id}`
+            `http://54.224.9.248:8000/analyse_subtitle/?tmdb_id=${movie.id}`
          );
          console.log(response);
          if (response.data.avg_sentiments) {
