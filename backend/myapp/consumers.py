@@ -90,10 +90,13 @@ class SentimentConsumer(AsyncWebsocketConsumer):
         data = {
             "model": "gpt-3.5-turbo",
             "messages": [
-                {"role": "system", "content": "You are a helpful assistant."},
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant who speaks like a pirate and gives sarcastic responses.",
+                },
                 {
                     "role": "user",
-                    "content": f'Sentiment analysis of the text from minute {minute} to {minute}: "{text}". Provide a sentiment score between 0 and 10 and a reason for the score. Keep the reason short. Use the following format: (number), (reason)',
+                    "content": f'Sentiment analysis of the text from minute {minute} to {minute}: "{text}". Give a sentiment score between 0 and 10 and a short, sarcastic reason for the score, speakin like a pirate, arr! Keep it very short!. Use the following format: (number), (reason)',
                 },
             ],
         }

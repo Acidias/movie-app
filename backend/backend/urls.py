@@ -22,12 +22,20 @@ from myapp.views import (
     SearchMovies,
     search_by_text_direct,
     chat_gpt,
-)  # Notice search_by_text instead of SearchByText
+    search_movies_api,
+    test,
+)
 
 urlpatterns = [
     path("api/movie/<int:movie_id>/", GetMovieDetails.as_view(), name="movie_details"),
     path("api/search/<str:title>/", SearchMovies.as_view(), name="search_movies"),
-    path("analyse_subtitle/", DownloadSubtitle.as_view(), name="analyse_subtitle"),
+    path("api/analyse_subtitle/", DownloadSubtitle.as_view(), name="analyse_subtitle"),
     path("api/openai_movie_titles/", search_by_text_direct, name="openai_movie_titles"),
     path("api/chat_gpt/", chat_gpt, name="chat_gpt"),
+    path(
+        "api/search_movies_api/<str:query>/",
+        search_movies_api,
+        name="search_movies_api",
+    ),
+    path("/test", test, name="test"),
 ]

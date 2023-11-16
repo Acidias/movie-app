@@ -1,0 +1,21 @@
+main {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+}
+
+.login-container {
+   border-radius: 10px;
+   display: flex;
+}
+
+.button {
+   background-color: #4285f4; /* Google blue */
+   color: white;
+   text-transform: none; /* Prevents uppercase transformation */
+}
+
+.button:hover {
+   background-color: #357ae8;
+}

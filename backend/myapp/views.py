@@ -28,7 +28,24 @@ TMDB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"
 OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 
 
-print("OpenAI API Key:", OPENAI_API_KEY)
+def test(request):
+    return HttpResponse("Server Is running")
+
+
+def search_movies_api(request, query):
+    try:
+        query_params = {
+            "api_key": THEMOVIEDB_KEY,
+            "query": query,
+            "language": "en-US",
+        }
+        response = requests.get(TMDB_SEARCH_URL, params=query_params)
+        response.raise_for_status()
+        return JsonResponse(response.json())
+    except requests.HTTPError as http_err:
+        return JsonResponse({"error": f"HTTP error occurred: {http_err}"}, status=500)
+    except Exception as err:
+        return JsonResponse({"error": f"An error occurred: {err}"}, status=500)
 
 
 @csrf_exempt
@@ -220,8 +237,13 @@ def MovieRecommendation(search_value):
 
 
 @csrf_exempt
-def search_by_text_direct(search_value):
+def search_by_text_direct(request):
     try:
+        data = json.loads(request.body)
+        search_value = data.get("searchValue")
+
+        print(f"SearchValue: {search_value}")
+
         headers = {
             "Authorization": f"Bearer {OPENAI_API_KEY}",
             "Content-Type": "application/json",
@@ -264,8 +286,9 @@ def search_by_text_direct(search_value):
             movie_details.append(top_movie_detail)
             print(f"Movie Detail: {top_movie_detail}")
 
-        return {"openaiResults": openai_results, "movie_details": movie_details}
-
+        return JsonResponse(
+            {"openaiResults": openai_results, "movie_details": movie_details}
+        )
     except Exception as e:
         print(f"Error: {str(e)}")
         return {"error": str(e)}

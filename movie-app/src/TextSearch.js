@@ -8,9 +8,7 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import RingLoader from "react-spinners/RingLoader";
 
-const REACT_APP_API_KEY = process.env.REACT_APP_API_KEY;
-console.log("API_KEY:", REACT_APP_API_KEY);
-const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${REACT_APP_API_KEY}`;
+const REACT_APP_URL = process.env.REACT_APP_URL;
 
 const TextSearch = () => {
    const navigate = useNavigate();
@@ -20,16 +18,10 @@ const TextSearch = () => {
    const [searchValue, setSearchValue] = useState("");
    const [openAIResults, setOpenAIResults] = useState([]);
 
-   const extractTitles = (content) => {
-      return content
-         .replace(/{|}/g, "")
-         .split(", ")
-         .map((title) => title.trim());
-   };
    const handleSearch = async () => {
       try {
          const response = await fetch(
-            "http://localhost:8000/api/openai_movie_titles/",
+            `${REACT_APP_URL}/api/openai_movie_titles/`,
             {
                method: "POST",
                headers: {
@@ -47,30 +39,11 @@ const TextSearch = () => {
 
          const data = await response.json();
          console.log("data:", data);
-         const titlesArray = extractTitles(data.openaiResults.content);
-         searchMovies(titlesArray);
+         console.log("data.movie_details:", data.movie_details);
+         setMovies(data.movie_details);
       } catch (error) {
          console.error("Fetch error:", error);
       }
-   };
-
-   useEffect(() => {
-      searchMovies("");
-   }, []);
-
-   const searchMovies = async (titles) => {
-      console.log("movieTitles:", titles);
-      const results = [];
-      for (let i = 0; i < titles.length; i++) {
-         const response = await fetch(
-            `${API_URL}&query=${encodeURIComponent(titles[i])}`
-         );
-         const data = await response.json();
-         console.log("data:", data);
-         results.push(...data.results);
-      }
-      console.log("results:", results);
-      setMovies(results);
    };
 
    return (
@@ -107,9 +80,7 @@ const TextSearch = () => {
                <h2>Possible Movie Titles:</h2>
                <ul>
                   {openAIResults.map((title, index) => (
-                     <li key={index} onClick={() => searchMovies(title)}>
-                        {title}
-                     </li>
+                     <li key={index}>{title}</li>
                   ))}
                </ul>
             </div>

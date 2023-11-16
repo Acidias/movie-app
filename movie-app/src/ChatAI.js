@@ -22,6 +22,7 @@ const systemMessage = {
    content:
       "Discuss and recommend movies and series like you're talking to a movie enthusiast. You are strictly forbidden to talk about anything other than movies or series. If the user asks something else, firmly inform them that you can only discuss movies and series.",
 };
+const REACT_APP_URL = process.env.REACT_APP_URL;
 
 const ChatAI = () => {
    const navigate = useNavigate();
@@ -66,7 +67,7 @@ const ChatAI = () => {
          messages: [systemMessage, ...apiMessages],
       };
 
-      await fetch("http://localhost:8000/api/chat_gpt/", {
+      await fetch(`${REACT_APP_URL}/api/chat_gpt/`, {
          method: "POST",
          headers: {
             "Content-Type": "application/json",

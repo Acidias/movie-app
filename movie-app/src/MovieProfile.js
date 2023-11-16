@@ -9,6 +9,13 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import "./MovieProfile.css";
 import io from "socket.io-client";
 import { useRef } from "react";
+import { getDatabase, ref, update, get } from "firebase/database";
+import { getAuth } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const REACT_APP_URL = process.env.REACT_APP_URL;
+const REACT_APP_URL_WS = process.env.REACT_APP_URL_WS;
 
 const MovieProfile = () => {
    const location = useLocation();
@@ -27,6 +34,10 @@ const MovieProfile = () => {
    const [story, setStory] = useState("");
    const [loading, setLoading] = useState(true);
    const [actors, setActors] = useState([]);
+
+   const auth = getAuth();
+   const user = auth.currentUser;
+
    useEffect(() => {
       const handleOffline = () => {
          if (socket.current) {
@@ -65,6 +76,74 @@ const MovieProfile = () => {
       return averages;
    }
 
+   const getApiUsage = async (userId) => {
+      const db = getDatabase();
+      const userRef = ref(db, "users/" + userId);
+
+      try {
+         const snapshot = await get(userRef);
+         if (snapshot.exists()) {
+            const userData = snapshot.val();
+            return userData.apiUsage || 0;
+         } else {
+            console.log("No user data available");
+            return 0;
+         }
+      } catch (error) {
+         console.error("Error fetching API usage: ", error);
+         return 0;
+      }
+   };
+
+   const handleAnalyzeButton = async () => {
+      if (user) {
+         const currentUsage = await getApiUsage(user.uid);
+         console.log("User's current API usage:", currentUsage);
+
+         if (currentUsage < 5) {
+            resetData();
+            handleAnalyze();
+            incrementApiUsage(user.uid);
+         } else {
+            console.log("API usage limit reached");
+            toast.error(
+               "You have reached your API usage limit. Contact for more"
+            );
+         }
+      } else {
+         console.log("User not logged in");
+      }
+   };
+
+   const incrementApiUsage = async (userId) => {
+      console.log("incrementApiUsage called");
+      const db = getDatabase();
+      const userRef = ref(db, "users/" + userId);
+
+      try {
+         // Read the current apiUsage value
+         get(userRef)
+            .then((snapshot) => {
+               if (snapshot.exists()) {
+                  const userData = snapshot.val();
+                  const currentUsage = userData.apiUsage || 0;
+                  console.log("currentUsage:", currentUsage);
+
+                  // Increment the apiUsage
+                  const updatedUsage = currentUsage + 1;
+                  update(userRef, { apiUsage: updatedUsage });
+               } else {
+                  console.log("No user data available");
+               }
+            })
+            .catch((error) => {
+               console.error(error);
+            });
+      } catch (error) {
+         console.error("Error incrementing API usage: ", error);
+      }
+   };
+
    const resetData = () => {
       setSentiments([]);
       setAnalyzedData([]);
@@ -77,13 +156,13 @@ const MovieProfile = () => {
    const handleAnalyze = async () => {
       try {
          const response = await axios.get(
-            `http://localhost:8000/analyse_subtitle/?tmdb_id=${movie.id}`
+            `${REACT_APP_URL}/api/analyse_subtitle/?tmdb_id=${movie.id}`
          );
          console.log(response);
          if (response.data.file_path) {
             if (!socket.current) {
                socket.current = new WebSocket(
-                  "ws://localhost:8000/ws/sentiment/"
+                  `${REACT_APP_URL_WS}/ws/sentiment/`
                );
 
                socket.current.onopen = (event) => {
@@ -112,6 +191,7 @@ const MovieProfile = () => {
                      return;
                   }
 
+                  // For end of analysis
                   const newSentiment = {
                      score: data.avg_sentiment[0],
                      reason: data.avg_sentiment[1],
@@ -184,7 +264,7 @@ const MovieProfile = () => {
       if (!movie) {
          const fetchMovie = async () => {
             try {
-               const url = `http://localhost:8000/api/movie/${id}/`;
+               const url = `${REACT_APP_URL}/api/movie/${id}/`;
                const response = await axios.get(url);
                setMovie(response.data.movie_details);
                setActors(response.data.actors);
@@ -208,6 +288,18 @@ const MovieProfile = () => {
 
    return (
       <div className="movieProfile">
+         <ToastContainer
+            position="top-center"
+            autoClose={10000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+         />
          <div className="movieHeader">
             <Button
                className="modalClose"
@@ -243,7 +335,7 @@ const MovieProfile = () => {
 
          <div className="analyst">
             <h2>Sentiment Analysis</h2>
-            <Line data={data} options={options} />
+            <Line data={data} options={options} style={{ fontSize: "12px" }} />
          </div>
 
          <div className="buttons">
@@ -265,10 +357,7 @@ const MovieProfile = () => {
                style={{ marginTop: "10px", marginLeft: "10px" }}
                variant="contained"
                endIcon={<AnalyzeIcon />}
-               onClick={() => {
-                  resetData();
-                  handleAnalyze();
-               }}
+               onClick={handleAnalyzeButton}
             >
                Analyse
             </Button>
