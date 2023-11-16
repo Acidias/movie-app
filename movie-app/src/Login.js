@@ -85,6 +85,7 @@ const Login = () => {
                }}
             >
                Not phone friendly yet. Please use a desktop browser.
+               Registration required for API usage.
             </Typography>
             <Typography
                variant="body1"
@@ -92,8 +93,11 @@ const Login = () => {
             >
                This application is a demonstration project for a university
                course. It showcases functionalities like movie search, detail
-               retrieval, and chatbot interactions using OpenAI's API. The
-               system is currently in a trial phase with limited features.
+               retrieval, analysing movie sentiment, and chatbot interactions
+               using OpenAI's API. The system is currently in a trial phase with
+               limited features. The chatbot is to expriment with function
+               calling with OpenAI's API. The chatbot is not a fully functional
+               chatbot. It is a demonstration of the API's capabilities.
             </Typography>
 
             <Button
